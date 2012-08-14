@@ -13,7 +13,7 @@ The purpose of the project is to read the native output from retro game controll
 
 Each controller that can be connected provides a set of 12 common input wires. The amount of wires that are used for reading the controller varies depending on the controller (7 for NES or SNES, 9 for Genesis). Any pins that aren't used for data get used for identifying which system the controller belongs to.
 
-Generally, an adapter cable should be made route the native controller wires to a common 12-pin connector.
+Generally, an adapter cable should be made to route the native controller wires to a common 12-pin connector.
 
 
 ## Supported systems
