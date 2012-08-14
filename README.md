@@ -18,10 +18,10 @@ Generally, an adapter cable should be made to route the native controller wires 
 
 ## Supported systems
 
-##### Current
+#### Current
 * _None_
 
-##### Future
+#### Future
 * NES
 * SNES
 * Genesis
