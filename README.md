@@ -21,7 +21,7 @@ Generally, an adapter cable should be made route the native controller wires to 
 ##### Current
 * _None_
 
-#### Future
+##### Future
 * NES
 * SNES
 * Genesis
