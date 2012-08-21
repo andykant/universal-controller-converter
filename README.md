@@ -18,11 +18,13 @@ Generally, an adapter cable should be made to route the native controller wires 
 
 ## Supported systems
 
-#### Current
+#### Supported
 * _None_
 
-#### Future
+#### In Progress
 * NES
+
+#### Future
 * SNES
 * Genesis
 * Cobalt Flux (DDR)
