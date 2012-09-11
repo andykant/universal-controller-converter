@@ -19,16 +19,22 @@ Generally, an adapter cable should be made to route the native controller wires 
 ## Supported systems
 
 #### Supported
-* _None_
+- _None_
 
 #### In Progress
-* NES
+- NES + Power Pad
 
 #### Future
-* SNES
-* Genesis
-* Cobalt Flux (DDR)
+- SNES
+- Genesis
+- Cobalt Flux (DDR)
 
+#### Reference
+- [Gaming pinouts](http://pinouts.ru/Game/)
+- [NES pinout](http://wiki.nesdev.com/w/index.php/Standard_controller)
+- [NES: Power Pad overview](http://wiki.nesdev.com/w/index.php/Power_Pad)
+- [NES: Power Pad detailed info](http://nesdev.com/powerpad.txt)
+- [SNES pinout](http://pinouts.ru/Game/snescontroller_pinout.shtml)
 
 ## Copyright
 
