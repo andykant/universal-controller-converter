@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>UCC LED Debug Examples</title>
+  <style type="text/css">
+    body {
+      background: #eee;
+      font-family: Lucida Sans, Arial, sans-serif;
+      margin: 20px;
+    }
+    section {
+      border-top: 1px solid #ddd;
+      margin: 1em 0;
+    }
+    section:first-child {
+      border-top: none;
+      margin-top: 0;
+    }
+    ul {
+      background: #111;
+      border-radius: 10px;
+      display: inline-block;
+      list-style: none;
+      margin: 0;
+      padding: 2px 4px;
+    }
+    li {
+      background: #222;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 0;
+      min-width: 16px;
+      padding: 4px;
+      text-align: center;
+    }
+    .system ul {
+      margin: 0 4px 0 0;
+      padding: 4px 2px 2px;
+      width: 160px;
+    }
+    .system li {
+      border-radius: 16px;
+      margin: 0 2px;
+      padding: 0;
+      height: 16px;
+      width: 16px;
+    }
+    
+    li.nes, li.nes-powerpad { background: #600; }
+    li.snes { background: #606; }
+    li.ddr { background: #603; }
+    li.ddr:nth-child(even) { background: #036; }
+    li.xbox { background: #060; }
+    
+    li.control-pad, li.button { background: #666; }
+    .off li.control-pad, .off li.button { background: #666 !important; }
+    
+    li.button.a { background: #6f6; }
+    li.button.b { background: #f66; }
+    li.button.x { background: #66f; }
+    li.button.y { background: #ff6; }
+    li.button.lb, li.button.rb { background: #6ff; }
+    li.button.lt, li.button.rt { background: #f6f; }
+    li.button.back, li.button.start { background: #fff; }
+    li.button.guide { background: #bfb; }
+    li.control-pad.left, li.control-pad.right, li.control-pad.up, li.control-pad.down { background: #fff; }
+    li.button.pp1, li.button.pp2, li.button.pp5, li.button.pp6, li.button.pp9, li.button.pp10 { background: #66f; }
+    li.button.pp3, li.button.pp4, li.button.pp7, li.button.pp8, li.button.pp11, li.button.pp12 { background: #f66; }
+    li.button.pp3:nth-child(14), li.button.pp8:nth-child(21), li.button.pp11:nth-child(30) { background: #66f; }
+    li.button.pp6:nth-child(23) { background: #f66; }
+  </style>
+</head>
+<body>
+  <section>
+    <h3>mapping</h3>
+    <ul>
+      <li class="control-pad up">up</li>
+      <li class="control-pad down">down</li>
+      <li class="control-pad left">left</li>
+      <li class="control-pad right">right</li>
+      <li class="button a">a</li>
+      <li class="button b">b</li>
+      <li class="button x">x</li>
+      <li class="button y">y</li>
+      <li class="button lt">lt</li>
+      <li class="button lb">lb</li>
+      <li class="button rb">rb</li>
+      <li class="button rt">rt</li>
+      <li class="button back">back</li>
+      <li class="button guide">guide</li>
+      <li class="button start">start</li>
+    </ul>
+  </section>
+  <script>
+    var $ = function() { return document.querySelectorAll.apply(document, arguments); },
+      set = function(collection, leds, cls) {
+        var leds = typeof leds == 'number' ? [leds] : leds,
+          els = Array.prototype.slice.call(collection, 0).filter(function(el, i) {
+            if (leds.indexOf(i) > -1) return el;
+          });
+        els.forEach(function(el, i) {
+          el.className = cls;
+        });
+      },
+      setter = function(system, state) {
+        var els = $('.'+system+'.'+state+' li');
+        return function(leds, cls) {
+          set(els, leds, cls);
+        };
+      },
+      SYSTEMS = ['nes', 'nes-powerpad', 'snes', 'ddr', 'xbox'],
+      STATES = ['off', 'on'];
+      
+    // Generate the containers
+    SYSTEMS.forEach(function(system) {
+      var section = document.createElement('section'),
+        html = '<h3>'+system+'</h3>';
+      
+      STATES.forEach(function(state) {
+        html += '<ul class="'+system+' '+state+'">';
+        for (var i = 0; i < 32; i++) {
+          html += '<li></li>';
+        }
+        html += '</ul>';
+      });
+      section.className = 'system ' + system;
+      section.innerHTML = html;
+      document.body.appendChild(section);
+    });
+    
+    /** LEDs
+     *  0   1   2   3   4   5   6   7
+     *  8   9   10  11  12  13  14  15
+     *  16  17  18  19  20  21  22  23
+     *  24  25  26  27  28  29  30  31
+     */
+     
+    STATES.forEach(function(state) {
+      SYSTEMS.forEach(function(system) {
+        var sys = setter(system, state);
+        sys([0,1,2,3,4,5,6,7], system);
+        if (!system.match(/^(nes-powerpad)$/)) {
+          sys(9, 'control-pad up');
+          sys(16, 'control-pad left');
+          sys(17, 'control-pad');
+          sys(18, 'control-pad right');
+          sys(25, 'control-pad down');
+        }
+      });
+      
+      var nes = setter('nes', state);
+      nes(28, 'button back');
+      nes(29, 'button start');
+      nes(22, 'button b');
+      nes(23, 'button a');
+      
+      var nespp = setter('nes-powerpad', state);
+      nespp([0,1,2,3,4,5,6,7], 'nes-powerpad');
+      nespp(8, 'button pp1');
+      nespp([9,14], 'button pp2');
+      nespp([10,13], 'button pp3');
+      nespp(11, 'button pp4');
+      nespp([16,23], 'button pp5');
+      nespp([17,22], 'button pp6');
+      nespp([18,21], 'button pp7');
+      nespp([19,20], 'button pp8');
+      nespp(24, 'button pp9');
+      nespp([25,30], 'button pp10');
+      nespp([26,29], 'button pp11');
+      nespp(27, 'button pp12');
+      
+      var snes = setter('snes', state);
+      snes(28, 'button back');
+      snes(29, 'button start');
+      snes(22, 'button x');
+      snes(23, 'button y');
+      snes(30, 'button b');
+      snes(31, 'button a');
+      snes(12, 'button lb');
+      snes(15, 'button rb');
+      
+      var ddr = setter('ddr', state);
+      ddr(20, 'button b');
+      ddr(21, 'button start');
+      ddr(22, 'button a');
+      
+      var xbox = setter('xbox', state);
+      xbox(27, 'button back');
+      xbox(28, 'button guide');
+      xbox(29, 'button start');
+      xbox(22, 'button x');
+      xbox(23, 'button y');
+      xbox(30, 'button b');
+      xbox(31, 'button a');
+      xbox(12, 'button lt');
+      xbox(13, 'button lb');
+      xbox(14, 'button rb');
+      xbox(15, 'button rt');
+    });
+  </script>
+</body>
+</html>
