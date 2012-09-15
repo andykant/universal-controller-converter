@@ -1,0 +1,18 @@
+{
+  "name": "ucc-debug",
+  "version": "1.0.7",
+  "description": "Universal Controller Converter debugger",
+  "author": {
+    "name": "Andy Kant",
+    "email": "andy@andykant.com",
+    "url": "http://andykant.com"
+  },
+  "main": "debug",
+  "dependencies": {
+    "serialport": "1.0.7",
+    "colors": "0.6.0-1"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}

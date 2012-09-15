@@ -24,6 +24,8 @@
 #define NES_DATA_0 42
 #define NES_DATA_3 45
 #define NES_DATA_4 44
+#define TRUE "true"
+#define FALSE "false"
 
 struct nes {
   // Raw data
@@ -36,5 +38,6 @@ struct nes {
 
 void nes_setup();
 nes nes_read();
+String nes_debug(nes data);
 
 #endif

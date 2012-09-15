@@ -55,3 +55,49 @@ nes nes_read() {
   
   return data;
 }
+
+String nes_debug(nes data) {
+  String debug = "{ type: 'nes', data: { ";
+  debug.concat("a: ");
+  debug.concat(data.a ? TRUE : FALSE);
+  debug.concat(", b: ");
+  debug.concat(data.b ? TRUE : FALSE);
+  debug.concat(", select: ");
+  debug.concat(data.select ? TRUE : FALSE);
+  debug.concat(", start: ");
+  debug.concat(data.start ? TRUE : FALSE);
+  debug.concat(", up: ");
+  debug.concat(data.up ? TRUE : FALSE);
+  debug.concat(", down: ");
+  debug.concat(data.down ? TRUE : FALSE);
+  debug.concat(", left: ");
+  debug.concat(data.left ? TRUE : FALSE);
+  debug.concat(", right: ");
+  debug.concat(data.right ? TRUE : FALSE);
+  debug.concat(", powerpad: [");
+  debug.concat(data.pp1 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp2 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp3 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp4 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp5 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp6 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp7 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp8 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp9 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp10 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp11 ? TRUE : FALSE);
+  debug.concat(",");
+  debug.concat(data.pp12 ? TRUE : FALSE);
+  debug.concat("] } }");
+  return debug;
+}
